@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ЭВЦ ПАМЯТЬ — Интерактивный Портал</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Special+Elite&family=Roboto:wght@300;400;900&display=swap" rel="stylesheet">
+    <style>
+        body { background-color: #080808; color: #d1d1d1; font-family: 'Roboto', sans-serif; overflow-x: hidden; }
+        .special-font { font-family: 'Special Elite', serif; }
+        .title-font { font-family: 'Playfair Display', serif; }
+
+        /* Эффект шума старой пленки */
+        body::before {
+            content: ""; position: fixed; inset: 0; 
+            background: url('https://upload.wikimedia.org/wikipedia/commons/7/76/1k_Noise_Texture.png');
+            opacity: 0.05; pointer-events: none; z-index: 50;
+        }
+
+        .archive-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .scanline {
+            width: 100%; height: 2px; background: rgba(139, 0, 0, 0.3);
+            position: absolute; animation: scan 4s linear infinite;
+        }
+        @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
+        /* Стиль для блока с Васяниным */
+.founder-card {
+    background: linear-gradient(to right, rgba(139,0,0,0.1), transparent);
+    border-left: 4px solid #8b0000;
+}
+.news-tag {
+    background: #8b0000;
+    font-size: 10px;
+    padding: 2px 8px;
+    letter-spacing: 1px;
+}
+    </style>
+</head>
+<body>
+
+    <header class="relative h-screen flex flex-col justify-center px-6 lg:px-24 border-b border-white/5">
+        <div class="scanline"></div>
+        <div class="relative z-10">
+            <p class="special-font text-[#8b0000] tracking-[5px] mb-4 uppercase">Проект: РОО "Мы вместе" / Грант 2020</p>
+            <h1 class="title-font text-6xl lg:text-9xl font-black uppercase leading-none mb-8">
+                Центр <br> <span class="text-white">Память</span>
+            </h1>
+            <p class="max-w-2xl text-xl text-gray-500 font-light leading-relaxed mb-12">
+                Цифровая децентрализованная система хранения истории Великой Отечественной войны в г. Советский.
+            </p>
+            <div class="flex gap-4">
+                <a href="#search-section" class="px-8 py-4 bg-[#8b0000] text-white uppercase text-xs font-bold tracking-widest hover:bg-red-700 transition">Поиск по архиву</a>
+                <a href="https://vk.com/public199606656" target="_blank" class="px-8 py-4 border border-white/10 uppercase text-xs font-bold tracking-widest hover:bg-white/5 transition">Сообщество</a>
+            </div>
+        </div>
+    </header>
+<section class="py-16 px-6 lg:px-24">
+    <div class="bg-white/5 border border-[#8b0000]/30 p-8 rounded-3xl flex flex-col md:flex-row items-center justify-between gap-8">
+        <div>
+            <h2 class="title-font text-3xl mb-2">Интерактивный Аудиогид</h2>
+            <p class="text-gray-400 special-font text-sm">Используйте ваш смартфон как ключ к тайнам архива</p>
+        </div>
+        <a href="ТВОЯ_ССЫЛКА_НА_ГИД" class="px-10 py-4 bg-[#8b0000] hover:bg-white hover:text-black transition-all font-bold uppercase tracking-widest text-xs">Открыть приложение</a>
+    </div>
+</section>
+
+<section class="py-24 px-6 lg:px-24">
+    <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <div class="space-y-6">
+            <h2 class="title-font text-4xl uppercase tracking-tighter">У истоков <span class="text-[#8b0000]">Созвездия</span></h2>
+            <div class="founder-card p-6">
+                <p class="text-white font-bold mb-2">Васянин Сергей Николаевич</p>
+                <p class="text-sm text-gray-400 leading-relaxed">
+                    Директор центра «Созвездие» и идейный вдохновитель. Под его руководством «Созвездие» стало не просто образовательным центром, а местом силы для молодежи Советского района. Создание ЭВЦ «Память» — это реализация его мечты о сохранении истории в современном формате.
+                </p>
+            </div>
+            <p class="text-gray-400 font-light">
+                Благодаря его инициативе РОО «Мы вместе» получила грантовую поддержку, превратив старые архивы в высокотехнологичный музей.
+            </p>
+        </div>
+        <div class="relative">
+            <div class="aspect-square bg-white/5 rounded-full overflow-hidden border-2 border-[#8b0000]/20 p-4">
+                 <img src="i.webp" class="w-full h-full object-cover rounded-full opacity-80 shadow-2xl">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-24 px-6 lg:px-24 bg-[#050505]">
+    <div class="flex justify-between items-center mb-12">
+        <h2 class="title-font text-3xl uppercase tracking-widest">Деятельность и новости</h2>
+        <div class="h-[1px] flex-1 mx-10 bg-white/10"></div>
+    </div>
+
+    <div id="news-grid" class="grid md:grid-cols-3 gap-8">
+        <div class="animate-pulse text-gray-700 special-font text-sm">Получение оперативных сводок...</div>
+    </div>
+</section>
+    <section id="search-section" class="py-24 px-6 lg:px-24 bg-[#0a0a0a]">
+        <div class="flex flex-col lg:flex-row justify-between items-end mb-16 gap-8">
+            <div>
+                <h2 class="title-font text-4xl uppercase mb-4">Облачный Реестр</h2>
+                <p class="special-font text-sm opacity-40">Подключение к базе данных установлено...</p>
+            </div>
+            <div class="w-full lg:w-1/3">
+                <input type="text" id="dbSearch" oninput="searchDB()" placeholder="Введите фамилию или номер объекта..." 
+                    class="w-full bg-transparent border-b-2 border-white/10 p-4 outline-none focus:border-[#8b0000] transition-all special-font text-xl text-white">
+            </div>
+        </div>
+
+        <div id="results" class="archive-grid">
+            <div class="animate-pulse text-gray-700 special-font">Инициализация потока данных...</div>
+        </div>
+    </section>
+
+    <section class="py-24 px-6 lg:px-24 border-t border-white/5">
+        <div class="grid lg:grid-cols-2 gap-20">
+            <div class="space-y-8 leading-loose text-gray-400 font-light">
+                <p>В городе Советский реализуется проект <strong class="text-white italic">«Экспозиционно-выставочный центр «Память»</strong> региональной общественной организации развития молодежных инициатив «Мы вместе» при участии Центра «Созвездие».</p>
+                <p>С марта 2020 года команда разработала концепцию, утвердила эскизы и провела строительные работы. <span class="text-[#8b0000] font-bold">С мая 2021 года двери музея открыты.</span></p>
+            </div>
+            <div class="relative">
+                <img src="https://sun9-5.userapi.com/impg/c858028/v858028551/1cd00a/6R8m-O6K_Ww.jpg?size=807x538&quality=96&sign=..." 
+                     class="w-full grayscale opacity-50 border border-white/5">
+                <div class="absolute inset-0 bg-red-900/10 mix-blend-overlay"></div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+    // Ссылка на основную таблицу (Лист 1 - Архив)
+    const ARCHIVE_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSh-Mi4ZmM4ZZZwXsjAkVDUNeRQJPhe_kzWWR0p4GzScVUnkzR4Ci4t_GsSSz22Z0T886mnbJENA21Q/pub?gid=0&single=true&output=csv';
+    
+    // Ссылка на лист с новостями (Лист 2 - Новости)
+    // ВАЖНО: Замените gid=12345 на ID вашего второго листа (новости)
+    const NEWS_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSh-Mi4ZmM4ZZZwXsjAkVDUNeRQJPhe_kzWWR0p4GzScVUnkzR4Ci4t_GsSSz22Z0T886mnbJENA21Q/pub?gid=1539729801&single=true&output=csv';
+
+    let archiveData = [];
+
+    async function init() {
+        await loadNews();    // Загружаем новости
+        await loadArchive(); // Загружаем архив
+    }
+
+    // Загрузка НОВОСТЕЙ
+    async function loadNews() {
+        try {
+            const response = await fetch(NEWS_URL);
+            const csvText = await response.text();
+            const rows = csvText.split('\n').slice(1);
+            
+            const newsData = rows.map(row => {
+                const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+                return {
+                    tag: cols[0]?.replace(/"/g, ''),
+                    title: cols[1]?.replace(/"/g, ''),
+                    date: cols[2]?.replace(/"/g, ''),
+                    img: cols[3]?.replace(/"/g, '').trim()
+                };
+            }).filter(item => item.title);
+
+            renderNews(newsData);
+        } catch (err) {
+            console.error("Ошибка загрузки новостей", err);
+        }
+    }
+
+    function renderNews(data) {
+        const container = document.getElementById('news-grid');
+        // Оставляем последние 2 новости из БД + статичную карточку клуба
+        const newsHTML = data.slice(0, 2).map(item => `
+            <div class="group cursor-pointer">
+                <div class="overflow-hidden mb-4 border border-white/5 h-48">
+                    <img src="${item.img}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500 grayscale group-hover:grayscale-0">
+                </div>
+                <span class="news-tag text-white uppercase font-bold">${item.tag}</span>
+                <h3 class="mt-3 text-lg font-bold leading-tight group-hover:text-[#8b0000]">${item.title}</h3>
+                <p class="mt-2 text-sm text-gray-500">${item.date}</p>
+            </div>
+        `).join('');
+
+        // Добавляем в конец статичную карточку клуба
+        container.innerHTML = newsHTML + `
+            <div class="bg-[#8b0000]/10 p-8 border border-[#8b0000]/30 flex flex-col justify-between">
+                <div>
+                    <h3 class="special-font text-xl mb-4">Клуб «Мы вместе»</h3>
+                    <ul class="text-sm space-y-3 text-gray-300">
+                        <li>• Патриотические сборы</li>
+                        <li>• Поисковые экспедиции</li>
+                        <li>• Оцифровка семейных архивов</li>
+                        <li>• Волонтерская помощь</li>
+                    </ul>
+                </div>
+                <a href="https://vk.com/public199606656" class="mt-6 text-xs font-bold uppercase tracking-widest border-b border-[#8b0000] inline-block">Вступить в клуб</a>
+            </div>
+        `;
+    }
+
+    // Загрузка АРХИВА 
+    async function loadArchive() {
+        try {
+            const response = await fetch(ARCHIVE_URL);
+            const csvText = await response.text();
+            const rows = csvText.split('\n').slice(1);
+            archiveData = rows.map(row => {
+                const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+                return {
+                    id: cols[0]?.replace(/"/g, ''),
+                    title: cols[1]?.replace(/"/g, ''),
+                    author: cols[2]?.replace(/"/g, ''),
+                    img: cols[3]?.replace(/"/g, '').replace('www.dropbox.com', 'dl.dropboxusercontent.com').replace('?dl=0', ''),
+                };
+            }).filter(item => item.title);
+            renderResults(archiveData);
+        } catch (err) {
+            document.getElementById('results').innerHTML = "Ошибка связи с сервером БД.";
+        }
+    }
+
+    function renderResults(data) {
+        const container = document.getElementById('results');
+        container.innerHTML = data.map(item => `
+            <div class="group bg-white/5 border border-white/5 p-4 hover:border-[#8b0000]/50 transition-all duration-500">
+                <div class="relative overflow-hidden mb-4 h-48">
+                    <img src="${item.img}" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition duration-700">
+                    <div class="absolute top-2 left-2 bg-black/80 px-2 py-1 text-[10px] special-font">ID: ${item.id}</div>
+                </div>
+                <h3 class="font-bold text-white uppercase tracking-tighter mb-2">${item.title}</h3>
+                <p class="text-[#8b0000] text-[10px] font-bold uppercase tracking-widest">${item.author}</p>
+            </div>
+        `).join('');
+    }
+
+    function searchDB() {
+        const query = document.getElementById('dbSearch').value.toLowerCase();
+        const filtered = archiveData.filter(item => 
+            item.title.toLowerCase().includes(query) || 
+            item.author.toLowerCase().includes(query) ||
+            item.id.includes(query)
+        );
+        renderResults(filtered);
+    }
+
+    window.onload = init;
+</script>
+</body>
+</html>
