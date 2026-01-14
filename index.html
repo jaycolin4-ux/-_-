@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,247 +8,249 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Special+Elite&family=Roboto:wght@300;400;900&display=swap" rel="stylesheet">
     <style>
-        body { background-color: #080808; color: #d1d1d1; font-family: 'Roboto', sans-serif; overflow-x: hidden; }
-        .special-font { font-family: 'Special Elite', serif; }
-        .title-font { font-family: 'Playfair Display', serif; }
+        /* НАЗВАНИЯ КЛАССОВ ТЕПЕРЬ ПОНЯТНЫЕ */
+        .main-container { background-color: #080808; color: #d1d1d1; font-family: 'Roboto', sans-serif; overflow-x: hidden; }
+        .font-typewriter { font-family: 'Special Elite', serif; }
+        .font-title { font-family: 'Playfair Display', serif; }
 
         /* Эффект шума старой пленки */
-        body::before {
-            content: ""; position: fixed; inset: 0; 
-            background: url('https://upload.wikimedia.org/wikipedia/commons/7/76/1k_Noise_Texture.png');
-            opacity: 0.05; pointer-events: none; z-index: 50;
-        }
+        .film-grain::before { content: ""; position: fixed; inset: 0; background: url('https://upload.wikimedia.org/wikipedia/commons/7/76/1k_Noise_Texture.png'); opacity: 0.05; pointer-events: none; z-index: 50; }
 
-        .archive-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-        }
+        .scanline-overlay { width: 100%; height: 2px; background: rgba(139, 0, 0, 0.3); position: absolute; animation: scan-move 4s linear infinite; }
+        @keyframes scan-move { 0% { top: 0; } 100% { top: 100%; } }
 
-        .scanline {
-            width: 100%; height: 2px; background: rgba(139, 0, 0, 0.3);
-            position: absolute; animation: scan 4s linear infinite;
-        }
-        @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
-        /* Стиль для блока с Васяниным */
-.founder-card {
-    background: linear-gradient(to right, rgba(139,0,0,0.1), transparent);
-    border-left: 4px solid #8b0000;
-}
-.news-tag {
-    background: #8b0000;
-    font-size: 10px;
-    padding: 2px 8px;
-    letter-spacing: 1px;
-}
+        /* Стили кнопок */
+        .btn-main { padding: 1rem 2rem; background-color: #8b0000; color: white; text-transform: uppercase; font-size: 12px; font-weight: bold; letter-spacing: 2px; transition: 0.3s; }
+        .btn-main:hover { background-color: #b91c1c; }
+        .btn-ghost { padding: 1rem 2rem; border: 1px solid rgba(255, 255, 255, 0.1); text-transform: uppercase; font-size: 12px; font-weight: bold; letter-spacing: 2px; transition: 0.3s; }
+        .btn-ghost:hover { background-color: rgba(255, 255, 255, 0.05); }
+
+        /* Карточка основателя */
+        .founder-info-block { background: linear-gradient(to right, rgba(139, 0, 0, 0.1), transparent); border-left: 4px solid #8b0000; padding: 1.5rem; }
+        .founder-portrait-wrap { width: 20rem; height: 20rem; background-color: rgba(255, 255, 255, 0.05); border-radius: 9999px; overflow: hidden; border: 4px solid rgba(139, 0, 0, 0.2); padding: 0.75rem; }
+        @media (min-width: 1024px) { .founder-portrait-wrap { width: 30rem; height: 30rem; } }
+        
+        /* Архив и новости */
+        .tag-red { background-color: #8b0000; font-size: 10px; padding: 2px 8px; letter-spacing: 1px; }
+        .archive-card { background-color: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.05); padding: 1rem; cursor: pointer; transition: 0.5s; }
+        .archive-card:hover { border-color: rgba(139, 0, 0, 0.5); }
+
+        /* Нижнее фото музея */
+        .museum-photo-frame { position: relative; aspect-ratio: 16 / 9; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.1); filter: sepia(20%) contrast(1.1); }
+        
+        /* Модалка */
+        .modal-background { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 100; backdrop-filter: blur(10px); align-items: center; justify-content: center; padding: 20px; }
     </style>
 </head>
-<body>
+
+<body class="main-container film-grain">
 
     <header class="relative h-screen flex flex-col justify-center px-6 lg:px-24 border-b border-white/5">
-        <div class="scanline"></div>
+        <div class="scanline-overlay"></div>
         <div class="relative z-10">
-            <p class="special-font text-[#8b0000] tracking-[5px] mb-4 uppercase">Проект: РОО "Мы вместе" / Грант 2020</p>
-            <h1 class="title-font text-6xl lg:text-9xl font-black uppercase leading-none mb-8">
+            <p class="font-typewriter text-[#8b0000] tracking-[5px] mb-4 uppercase">Проект: РОО "Мы вместе" / Грант 2020</p>
+            <h1 class="font-title text-6xl lg:text-9xl font-black uppercase leading-none mb-8">
                 Центр <br> <span class="text-white">Память</span>
             </h1>
             <p class="max-w-2xl text-xl text-gray-500 font-light leading-relaxed mb-12">
                 Цифровая децентрализованная система хранения истории Великой Отечественной войны в г. Советский.
             </p>
             <div class="flex gap-4">
-                <a href="#search-section" class="px-8 py-4 bg-[#8b0000] text-white uppercase text-xs font-bold tracking-widest hover:bg-red-700 transition">Поиск по архиву</a>
-                <a href="https://vk.com/public199606656" target="_blank" class="px-8 py-4 border border-white/10 uppercase text-xs font-bold tracking-widest hover:bg-white/5 transition">Сообщество</a>
+                <a href="#search-section" class="btn-main">Поиск по архиву</a>
+                <a href="https://vk.com/public199606656" target="_blank" class="btn-ghost">Сообщество</a>
             </div>
         </div>
     </header>
-<section class="py-16 px-6 lg:px-24">
-    <div class="bg-white/5 border border-[#8b0000]/30 p-8 rounded-3xl flex flex-col md:flex-row items-center justify-between gap-8">
-        <div>
-            <h2 class="title-font text-3xl mb-2">Интерактивный Аудиогид</h2>
-            <p class="text-gray-400 special-font text-sm">Используйте ваш смартфон как ключ к тайнам архива</p>
-        </div>
-        <a href="ТВОЯ_ССЫЛКА_НА_ГИД" class="px-10 py-4 bg-[#8b0000] hover:bg-white hover:text-black transition-all font-bold uppercase tracking-widest text-xs">Открыть приложение</a>
-    </div>
-</section>
 
-<section class="py-24 px-6 lg:px-24">
-    <div class="grid lg:grid-cols-2 gap-16 items-center">
-        <div class="space-y-6">
-            <h2 class="title-font text-4xl uppercase tracking-tighter">У истоков <span class="text-[#8b0000]">Созвездия</span></h2>
-            <div class="founder-card p-6">
-                <p class="text-white font-bold mb-2">Васянин Сергей Николаевич</p>
-                <p class="text-sm text-gray-400 leading-relaxed">
-                    Директор центра «Созвездие» и идейный вдохновитель. Под его руководством «Созвездие» стало не просто образовательным центром, а местом силы для молодежи Советского района. Создание ЭВЦ «Память» — это реализация его мечты о сохранении истории в современном формате.
-                </p>
+    <section class="py-16 px-6 lg:px-24">
+        <div class="bg-white/5 border border-[#8b0000]/30 p-8 rounded-3xl flex flex-col md:flex-row items-center justify-between gap-8">
+            <div>
+                <h2 class="font-title text-3xl mb-2">Интерактивный Аудиогид</h2>
+                <p class="text-gray-400 font-typewriter text-sm">Используйте ваш смартфон как ключ к тайнам архива</p>
             </div>
-            <p class="text-gray-400 font-light">
-                Благодаря его инициативе РОО «Мы вместе» получила грантовую поддержку, превратив старые архивы в высокотехнологичный музей.
-            </p>
+            <a href="https://jaycolin4-ux.github.io/memory/" class="btn-main rounded-none">Открыть приложение</a>
         </div>
-        <div class="relative">
-            <div class="aspect-square bg-white/5 rounded-full overflow-hidden border-2 border-[#8b0000]/20 p-4">
-                 <img src="i.webp" class="w-full h-full object-cover rounded-full opacity-80 shadow-2xl">
+    </section>
+
+    <section class="py-24 px-6 lg:px-24">
+        <div class="grid lg:grid-cols-2 gap-16 items-center">
+            <div class="space-y-6">
+                <h2 class="font-title text-4xl lg:text-5xl uppercase tracking-tighter">У истоков <span class="text-[#8b0000]">Созвездия</span></h2>
+                <div class="founder-info-block">
+                    <p class="text-white font-bold mb-2">Васянин Сергей Николаевич</p>
+                    <p class="text-sm text-gray-400 leading-relaxed italic">Директор центра «Созвездие» и идейный вдохновитель.</p>
+                    <p class="mt-4 text-sm text-gray-400">Создание ЭВЦ «Память» — это реализация его мечты о сохранении истории в современном формате.</p>
+                </div>
+            </div>
+            <div class="flex justify-center lg:justify-end">
+                <div class="founder-portrait-wrap">
+                    <img src="https://sun9-29.userapi.com/s/v1/ig2/skvfShhKRA9j9Q-l6ivQvZzfRiX33Qs0IF1nd5u_u70zsCRbL7EyReNVnWO0U3bufnD7u2gKqsXiqSGn4xqJ4TGt.jpg?quality=96&from=bu" 
+                         class="w-full h-full object-cover rounded-full grayscale hover:grayscale-0 transition-all duration-700">
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<section class="py-24 px-6 lg:px-24 bg-[#050505]">
-    <div class="flex justify-between items-center mb-12">
-        <h2 class="title-font text-3xl uppercase tracking-widest">Деятельность и новости</h2>
-        <div class="h-[1px] flex-1 mx-10 bg-white/10"></div>
-    </div>
+    <section class="py-24 px-6 lg:px-24 bg-[#050505]">
+        <div class="flex justify-between items-center mb-12">
+            <h2 class="font-title text-3xl uppercase tracking-widest">Деятельность и новости</h2>
+            <div class="h-[1px] flex-1 mx-10 bg-white/10"></div>
+        </div>
+        <div id="news-grid" class="grid md:grid-cols-3 gap-8">
+            <div class="text-gray-700 font-typewriter text-sm">Синхронизация новостей...</div>
+        </div>
+    </section>
 
-    <div id="news-grid" class="grid md:grid-cols-3 gap-8">
-        <div class="animate-pulse text-gray-700 special-font text-sm">Получение оперативных сводок...</div>
-    </div>
-</section>
     <section id="search-section" class="py-24 px-6 lg:px-24 bg-[#0a0a0a]">
         <div class="flex flex-col lg:flex-row justify-between items-end mb-16 gap-8">
             <div>
-                <h2 class="title-font text-4xl uppercase mb-4">Облачный Реестр</h2>
-                <p class="special-font text-sm opacity-40">Подключение к базе данных установлено...</p>
+                <h2 class="font-title text-4xl uppercase mb-4">Облачный Реестр</h2>
+                <p class="font-typewriter text-sm opacity-40">Подключение к базе данных установлено...</p>
             </div>
             <div class="w-full lg:w-1/3">
-                <input type="text" id="dbSearch" oninput="searchDB()" placeholder="Введите фамилию или номер объекта..." 
-                    class="w-full bg-transparent border-b-2 border-white/10 p-4 outline-none focus:border-[#8b0000] transition-all special-font text-xl text-white">
+                <input type="text" id="dbSearch" oninput="searchDB()" placeholder="Введите фамилию..." 
+                       class="w-full bg-transparent border-b-2 border-white/10 p-4 outline-none focus:border-[#8b0000] transition-all font-typewriter text-xl text-white">
             </div>
         </div>
-
-        <div id="results" class="archive-grid">
-            <div class="animate-pulse text-gray-700 special-font">Инициализация потока данных...</div>
+        <div id="results" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div class="text-gray-700 font-typewriter">Инициализация архива...</div>
         </div>
     </section>
 
     <section class="py-24 px-6 lg:px-24 border-t border-white/5">
-        <div class="grid lg:grid-cols-2 gap-20">
+        <div class="grid lg:grid-cols-2 gap-20 items-center">
             <div class="space-y-8 leading-loose text-gray-400 font-light">
                 <p>В городе Советский реализуется проект <strong class="text-white italic">«Экспозиционно-выставочный центр «Память»</strong> региональной общественной организации развития молодежных инициатив «Мы вместе» при участии Центра «Созвездие».</p>
-                <p>С марта 2020 года команда разработала концепцию, утвердила эскизы и провела строительные работы. <span class="text-[#8b0000] font-bold">С мая 2021 года двери музея открыты.</span></p>
+                <p>С марта 2020 года команда разработала концепцию и провела строительные работы. <span class="text-[#8b0000] font-bold">С мая 2021 года двери музея открыты.</span></p>
             </div>
-            <div class="relative">
-                <img src="https://sun9-5.userapi.com/impg/c858028/v858028551/1cd00a/6R8m-O6K_Ww.jpg?size=807x538&quality=96&sign=..." 
-                     class="w-full grayscale opacity-50 border border-white/5">
-                <div class="absolute inset-0 bg-red-900/10 mix-blend-overlay"></div>
+            <div class="museum-photo-frame shadow-2xl">
+                <img src="https://sun9-29.userapi.com/s/v1/ig2/skvfShhKRA9j9Q-l6ivQvZzfRiX33Qs0IF1nd5u_u70zsCRbL7EyReNVnWO0U3bufnD7u2gKqsXiqSGn4xqJ4TGt.jpg?quality=96&from=bu" 
+                     class="w-full h-full object-cover grayscale opacity-60">
+                <div class="absolute inset-0 bg-red-900/5 mix-blend-multiply"></div>
+                <div class="absolute bottom-4 right-4 text-[10px] font-typewriter opacity-30">ARCHIVE_REF: 2021_MUSEUM</div>
             </div>
         </div>
     </section>
 
-    <script>
-    // Ссылка на основную таблицу (Лист 1 - Архив)
-    const ARCHIVE_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSh-Mi4ZmM4ZZZwXsjAkVDUNeRQJPhe_kzWWR0p4GzScVUnkzR4Ci4t_GsSSz22Z0T886mnbJENA21Q/pub?gid=0&single=true&output=csv';
-    
-    // Ссылка на лист с новостями (Лист 2 - Новости)
-    // ВАЖНО: Замените gid=12345 на ID вашего второго листа (новости)
-    const NEWS_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSh-Mi4ZmM4ZZZwXsjAkVDUNeRQJPhe_kzWWR0p4GzScVUnkzR4Ci4t_GsSSz22Z0T886mnbJENA21Q/pub?gid=1539729801&single=true&output=csv';
-
-    let archiveData = [];
-
-    async function init() {
-        await loadNews();    // Загружаем новости
-        await loadArchive(); // Загружаем архив
-    }
-
-    // Загрузка НОВОСТЕЙ
-    async function loadNews() {
-        try {
-            const response = await fetch(NEWS_URL);
-            const csvText = await response.text();
-            const rows = csvText.split('\n').slice(1);
-            
-            const newsData = rows.map(row => {
-                const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
-                return {
-                    tag: cols[0]?.replace(/"/g, ''),
-                    title: cols[1]?.replace(/"/g, ''),
-                    date: cols[2]?.replace(/"/g, ''),
-                    img: cols[3]?.replace(/"/g, '').trim()
-                };
-            }).filter(item => item.title);
-
-            renderNews(newsData);
-        } catch (err) {
-            console.error("Ошибка загрузки новостей", err);
-        }
-    }
-
-    function renderNews(data) {
-        const container = document.getElementById('news-grid');
-        // Оставляем последние 2 новости из БД + статичную карточку клуба
-        const newsHTML = data.slice(0, 2).map(item => `
-            <div class="group cursor-pointer">
-                <div class="overflow-hidden mb-4 border border-white/5 h-48">
-                    <img src="${item.img}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500 grayscale group-hover:grayscale-0">
-                </div>
-                <span class="news-tag text-white uppercase font-bold">${item.tag}</span>
-                <h3 class="mt-3 text-lg font-bold leading-tight group-hover:text-[#8b0000]">${item.title}</h3>
-                <p class="mt-2 text-sm text-gray-500">${item.date}</p>
+    <div id="modal" class="modal-background" onclick="closeModal()">
+        <div class="max-w-4xl w-full bg-[#111] border border-white/10 p-8 rounded-lg relative flex flex-col md:flex-row gap-8" onclick="event.stopPropagation()">
+            <button class="absolute top-4 right-4 text-4xl text-gray-500 hover:text-[#8b0000]" onclick="closeModal()">&times;</button>
+            <div class="w-full md:w-1/2">
+                <img id="modalImg" src="" class="w-full rounded border border-white/5 shadow-2xl">
             </div>
-        `).join('');
-
-        // Добавляем в конец статичную карточку клуба
-        container.innerHTML = newsHTML + `
-            <div class="bg-[#8b0000]/10 p-8 border border-[#8b0000]/30 flex flex-col justify-between">
+            <div class="w-full md:w-1/2 space-y-6">
                 <div>
-                    <h3 class="special-font text-xl mb-4">Клуб «Мы вместе»</h3>
-                    <ul class="text-sm space-y-3 text-gray-300">
-                        <li>• Патриотические сборы</li>
-                        <li>• Поисковые экспедиции</li>
-                        <li>• Оцифровка семейных архивов</li>
-                        <li>• Волонтерская помощь</li>
-                    </ul>
+                    <span id="modalID" class="font-typewriter text-[#8b0000] text-sm"></span>
+                    <h2 id="modalTitle" class="font-title text-3xl text-white mt-2"></h2>
                 </div>
-                <a href="https://vk.com/public199606656" class="mt-6 text-xs font-bold uppercase tracking-widest border-b border-[#8b0000] inline-block">Вступить в клуб</a>
+                <div class="h-px bg-white/10 w-24"></div>
+                <div>
+                    <p class="text-[10px] uppercase tracking-widest text-gray-500 mb-1">Принадлежность / Автор</p>
+                    <p id="modalAuthor" class="font-typewriter text-xl text-gray-200"></p>
+                </div>
+                <p class="text-gray-400 font-light leading-relaxed text-sm">Данный экспонат является частью цифрового фонда ЭВЦ «Память». Для получения доступа к физическому архиву обратитесь в центр «Созвездие».</p>
             </div>
-        `;
-    }
+        </div>
+    </div>
 
-    // Загрузка АРХИВА 
-    async function loadArchive() {
-        try {
-            const response = await fetch(ARCHIVE_URL);
-            const csvText = await response.text();
-            const rows = csvText.split('\n').slice(1);
-            archiveData = rows.map(row => {
-                const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
-                return {
-                    id: cols[0]?.replace(/"/g, ''),
-                    title: cols[1]?.replace(/"/g, ''),
-                    author: cols[2]?.replace(/"/g, ''),
-                    img: cols[3]?.replace(/"/g, '').replace('www.dropbox.com', 'dl.dropboxusercontent.com').replace('?dl=0', ''),
-                };
-            }).filter(item => item.title);
-            renderResults(archiveData);
-        } catch (err) {
-            document.getElementById('results').innerHTML = "Ошибка связи с сервером БД.";
+    <script>
+        const ARCHIVE_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSh-Mi4ZmM4ZZZwXsjAkVDUNeRQJPhe_kzWWR0p4GzScVUnkzR4Ci4t_GsSSz22Z0T886mnbJENA21Q/pub?gid=0&single=true&output=csv';
+        const NEWS_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSh-Mi4ZmM4ZZZwXsjAkVDUNeRQJPhe_kzWWR0p4GzScVUnkzR4Ci4t_GsSSz22Z0T886mnbJENA21Q/pub?gid=1539729801&single=true&output=csv';
+        let archiveData = [];
+
+        async function init() { await loadNews(); await loadArchive(); }
+
+        async function loadNews() {
+            try {
+                const response = await fetch(NEWS_URL);
+                const csvText = await response.text();
+                const rows = csvText.split('\n').slice(1);
+                const newsData = rows.map(row => {
+                    const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+                    return {
+                        tag: cols[0]?.replace(/"/g, '') || 'СОБЫТИЕ',
+                        title: cols[1]?.replace(/"/g, ''),
+                        date: cols[2]?.replace(/"/g, ''),
+                        img: cols[3]?.replace(/"/g, '').trim() || 'https://via.placeholder.com/400x300/111/888?text=MEMORY'
+                    };
+                }).filter(item => item.title);
+                renderNews(newsData);
+            } catch (err) { console.error("Ошибка новостей"); }
         }
-    }
 
-    function renderResults(data) {
-        const container = document.getElementById('results');
-        container.innerHTML = data.map(item => `
-            <div class="group bg-white/5 border border-white/5 p-4 hover:border-[#8b0000]/50 transition-all duration-500">
-                <div class="relative overflow-hidden mb-4 h-48">
-                    <img src="${item.img}" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition duration-700">
-                    <div class="absolute top-2 left-2 bg-black/80 px-2 py-1 text-[10px] special-font">ID: ${item.id}</div>
+        function renderNews(data) {
+            const container = document.getElementById('news-grid');
+            const newsHTML = data.slice(0, 2).map(item => `
+                <div class="group cursor-pointer">
+                    <div class="overflow-hidden mb-4 border border-white/5 h-48 bg-zinc-900">
+                        <img src="${item.img}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500 grayscale group-hover:grayscale-0">
+                    </div>
+                    <span class="tag-red text-white uppercase font-bold">${item.tag}</span>
+                    <h3 class="mt-3 text-lg font-bold leading-tight group-hover:text-[#8b0000]">${item.title}</h3>
+                    <p class="mt-2 text-sm text-gray-500">${item.date}</p>
                 </div>
-                <h3 class="font-bold text-white uppercase tracking-tighter mb-2">${item.title}</h3>
-                <p class="text-[#8b0000] text-[10px] font-bold uppercase tracking-widest">${item.author}</p>
-            </div>
-        `).join('');
-    }
+            `).join('');
+            container.innerHTML = newsHTML + `
+                <div class="bg-[#8b0000]/10 p-8 border border-[#8b0000]/30 flex flex-col justify-between">
+                    <div><h3 class="font-typewriter text-xl mb-4">Клуб «Мы вместе»</h3>
+                    <ul class="text-sm space-y-3 text-gray-300"><li>• Патриотические сборы</li><li>• Поисковые экспедиции</li><li>• Оцифровка архивов</li></ul></div>
+                    <a href="https://vk.com/public199606656" class="mt-6 text-xs font-bold uppercase tracking-widest border-b border-[#8b0000] inline-block">Вступить</a>
+                </div>`;
+        }
 
-    function searchDB() {
-        const query = document.getElementById('dbSearch').value.toLowerCase();
-        const filtered = archiveData.filter(item => 
-            item.title.toLowerCase().includes(query) || 
-            item.author.toLowerCase().includes(query) ||
-            item.id.includes(query)
-        );
-        renderResults(filtered);
-    }
+        async function loadArchive() {
+            try {
+                const response = await fetch(ARCHIVE_URL);
+                const csvText = await response.text();
+                const rows = csvText.split('\n').slice(1);
+                archiveData = rows.map(row => {
+                    const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+                    return {
+                        id: cols[0]?.replace(/"/g, '') || '000',
+                        title: cols[1]?.replace(/"/g, ''),
+                        author: cols[2]?.replace(/"/g, '') || 'Неизвестен',
+                        img: cols[3]?.replace(/"/g, '').replace('www.dropbox.com', 'dl.dropboxusercontent.com').trim() || 'https://via.placeholder.com/400x300/111/888?text=ARCHIVE'
+                    };
+                }).filter(item => item.title);
+                renderResults(archiveData);
+            } catch (err) { document.getElementById('results').innerHTML = "Ошибка связи."; }
+        }
 
-    window.onload = init;
-</script>
+        function renderResults(data) {
+            const container = document.getElementById('results');
+            container.innerHTML = data.map((item, index) => `
+                <div onclick="openModal(${index})" class="archive-card group">
+                    <div class="relative overflow-hidden mb-4 h-56 bg-zinc-900">
+                        <img src="${item.img}" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition duration-700">
+                        <div class="absolute top-2 left-2 bg-black/80 px-2 py-1 text-[10px] font-typewriter">ID: ${item.id}</div>
+                    </div>
+                    <h3 class="font-bold text-white uppercase tracking-tighter mb-2">${item.title}</h3>
+                    <p class="text-[#8b0000] text-[10px] font-bold uppercase tracking-widest">${item.author}</p>
+                </div>
+            `).join('');
+        }
+
+        function openModal(index) {
+            const item = archiveData[index];
+            document.getElementById('modalImg').src = item.img;
+            document.getElementById('modalTitle').innerText = item.title;
+            document.getElementById('modalID').innerText = 'АРХИВНЫЙ НОМЕР: ' + item.id;
+            document.getElementById('modalAuthor').innerText = item.author;
+            document.getElementById('modal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function searchDB() {
+            const query = document.getElementById('dbSearch').value.toLowerCase();
+            const filtered = archiveData.filter(item => item.title.toLowerCase().includes(query) || item.author.toLowerCase().includes(query) || item.id.includes(query));
+            renderResults(filtered);
+        }
+        window.onload = init;
+    </script>
 </body>
 </html>
